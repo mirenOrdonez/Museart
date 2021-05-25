@@ -42,7 +42,7 @@ public class GalleryFragment extends Fragment {
     private DbManager db;
     private ListView lista;
     private Cursor c;
-    private obraAdapter adaptador;
+    private obraAdapter adapter;
 
     public GalleryFragment() {
 
@@ -56,26 +56,27 @@ public class GalleryFragment extends Fragment {
 
         db = new DbManager(getActivity().getApplicationContext());
 
-
+        getObras();
 
         //Llenamos el list view
         lista = vista.findViewById(R.id.listaObras);
-
         c = db.getCursor("obras", "1");
-        if (c.moveToFirst()) {
-            adaptador = new obraAdapter(getActivity().getApplicationContext(), c);
-            lista.setAdapter(adaptador);
+        if (c != null) {
+            try {
+                c.moveToFirst();
+                adapter = new obraAdapter(getActivity().getApplicationContext(), c);
+                lista.setAdapter(adapter);
+            } catch (Exception e) {
+                Log.d("error", e.getMessage());
+            }
+
         }
         else {
-            db.insertarObras(1, "titulo", "artista", 0000, "lugarNac", 0000,
-                    "lugarFal", 0000, "periodo", "descripcion", "dato",
-                    "imagen");
-            adaptador = new obraAdapter(getActivity().getApplicationContext(), c);
-            lista.setAdapter(adaptador);
-            Log.d("ERROR :", "No está cargando el listview obras");
+            Log.d("ERROR", "listview");
         }
 
-        getObras();
+
+
 
         return vista;
     }
@@ -89,12 +90,13 @@ public class GalleryFragment extends Fragment {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 try {
-                    Log.d("OBRAS", response.toString());
+                    db.borrarTabla("obras");
+                    //Log.d("OBRAS", response.toString());
                     if (response.getBoolean("success")) {
                         JSONArray obras = response.getJSONArray("listaObras");
                         for (int i=0; i < obras.length(); i++) {
                             JSONObject o = obras.getJSONObject(i);
-                            db.insertarObras(o.getInt("_id"),
+                            db.insertarObras(o.getInt("id"),
                                     o.getString("titulo"),
                                     o.getString("artista"),
                                     o.getInt("annoNac"),
@@ -109,7 +111,8 @@ public class GalleryFragment extends Fragment {
                         }
                     }
                 } catch (Exception e) {
-                    e.getMessage();
+                    Log.d("ERROR: ", e.getMessage());
+                    e.printStackTrace();
                 }
             }
 

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class DbManager {
     public static final String TABLA_OBRAS = "obras";
@@ -56,7 +55,7 @@ public class DbManager {
     }
 
     //CREAR LA TABLA OBRAS
-    public ContentValues generarObras(int id, String titulo, String artista, int annoNac, String lugarNac, int annoFal,
+    private ContentValues generarObras(int id, String titulo, String artista, int annoNac, String lugarNac, int annoFal,
                                        String lugarFal,int publicado_en, String periodo, String descripcion, String dato_curioso, String imagen) {
         ContentValues init = new ContentValues();
         init.put(OBRAS_ID, id);
@@ -78,12 +77,12 @@ public class DbManager {
                                String lugarFal,int publicado_en, String periodo, String descripcion,
                                String dato_curioso, String imagen) {
 
-        /*Log.d("ERROR INSERTAR:", String.valueOf(db.insert(TABLA_OBRAS, null, generarObras(id, titulo, artista, annoNac, lugarNac, annoFal,
-                lugarFal, publicado_en,  periodo,  descripcion, dato_curioso, imagen))));*/
-
         return db.insert(TABLA_OBRAS, null, generarObras(id, titulo, artista, annoNac, lugarNac, annoFal,
                 lugarFal, publicado_en,  periodo,  descripcion, dato_curioso, imagen));
+    }
 
+    public void borrarTabla (String tabla) {
+        db.delete(tabla, null, null);
     }
 
     public Cursor getCursor(String tabla, String condicion) throws SQLException {
@@ -92,11 +91,6 @@ public class DbManager {
         if (cursor != null) {
             cursor.moveToFirst();
         }
-        else {
-            Log.d("ERROR: ", "error en el cursor");
-        }
         return cursor;
     }
-
-
 }

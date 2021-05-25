@@ -1,6 +1,5 @@
 package com.example.bottomnavbar;
 
-import androidx.annotation.Nullable;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
@@ -17,13 +16,15 @@ public class RegistroRequest extends StringRequest {
     private Map<String, String> params;
 
     //STRING POR CAMPO A RELLENAR
-    public RegistroRequest(String nombre, String email, String password,  Response.Listener<String> listener){
+    public RegistroRequest(int idAdmin, String nombre, String email, String password, int nivel,  Response.Listener<String> listener){
         super(Method.POST, REGISTER_REQUEST_URL, listener, null);
         params= new HashMap<>();
         //PARAMETRO POR CAMPO A RELLENAR
+        params.put("idAdmin", String.valueOf(idAdmin));
         params.put("Nombre", nombre);
         params.put("Email", email);
         params.put("Password", password);
+        params.put("Nivel", String.valueOf(nivel));
 
     }
 

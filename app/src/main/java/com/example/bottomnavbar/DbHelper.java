@@ -5,11 +5,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
 
 public class DbHelper extends SQLiteOpenHelper{
     private static final String DB_NAME = "museart";
-    private static final int DB_SCHEMA_VERSION = 2;
+    private static final int DB_SCHEMA_VERSION = 4;
 
     public DbHelper(Context context) {
         super(context, DB_NAME, null, DB_SCHEMA_VERSION);
