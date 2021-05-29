@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegistroActivity"></activity>
+        <activity android:name=".ObraActivity"></activity>
+        <activity android:name=".RegistroActivity" />
         <activity android:name=".Menu" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".DetalleNews" />

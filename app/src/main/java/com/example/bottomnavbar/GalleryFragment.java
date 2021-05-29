@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -75,6 +76,17 @@ public class GalleryFragment extends Fragment {
         else {
             Log.d("ERROR", "listview");
         }
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                Cursor cursorObra = (Cursor) lista.getItemAtPosition(i);
+                int id = cursorObra.getColumnIndexOrThrow("_id");
+                //Log.d("id", String.valueOf(id));
+                startActivity(new Intent(getActivity().getApplicationContext(), ObraActivity.class).putExtra("_id", id));
+
+            }
+        });
 
         return vista;
     }
