@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 public class DetalleNews extends AppCompatActivity {
-    private TextView tvTitulo, tvDescripcion, tvFechas;
+    private TextView tvTitulo, tvDescripcion, tvFechas, tvContenido;
     private ImageView imgFoto;
     private News item;
 
@@ -20,13 +20,15 @@ public class DetalleNews extends AppCompatActivity {
         if (item != null){
             tvTitulo = findViewById(R.id.tvTitulo);
             tvDescripcion = findViewById(R.id.tvDescripcion);
+            tvContenido = findViewById(R.id.tvContenido);
             imgFoto = findViewById(R.id.imgFoto);
             tvFechas = findViewById(R.id.tvFechas);
 
             tvTitulo.setText(item.getTitulo());
-            tvDescripcion.setText(item.getContenido());
+            tvDescripcion.setText(item.getDescripcion());
             imgFoto.setImageResource(item.getImgFoto());
             tvFechas.setText(item.getFechas());
+            tvContenido.setText(item.getContenido());
         }
     }
 }

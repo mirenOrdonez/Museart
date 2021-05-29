@@ -66,6 +66,7 @@ public class GalleryFragment extends Fragment {
                 c.moveToFirst();
                 adapter = new obraAdapter(getActivity().getApplicationContext(), c);
                 lista.setAdapter(adapter);
+                Log.d("Muestra", "listv");
             } catch (Exception e) {
                 Log.d("error", e.getMessage());
             }
@@ -74,9 +75,6 @@ public class GalleryFragment extends Fragment {
         else {
             Log.d("ERROR", "listview");
         }
-
-
-
 
         return vista;
     }
@@ -91,23 +89,29 @@ public class GalleryFragment extends Fragment {
                 super.onSuccess(statusCode, headers, response);
                 try {
                     db.borrarTabla("obras");
-                    //Log.d("OBRAS", response.toString());
+                    Log.d("OBRAS", response.toString());
                     if (response.getBoolean("success")) {
                         JSONArray obras = response.getJSONArray("listaObras");
                         for (int i=0; i < obras.length(); i++) {
                             JSONObject o = obras.getJSONObject(i);
-                            db.insertarObras(o.getInt("id"),
-                                    o.getString("titulo"),
-                                    o.getString("artista"),
-                                    o.getInt("annoNac"),
-                                    o.getString("lugarNac"),
-                                    o.getInt("annoFal"),
-                                    o.getString("lugarFal"),
-                                    o.getInt("publicado_en"),
-                                    o.getString("periodo"),
-                                    o.getString("descripcion"),
-                                    o.getString("dato_curioso"),
-                                    o.getString("imagen"));
+                            try {
+                                db.insertarObras(o.getString("id"),
+                                        o.getString("titulo"),
+                                        o.getString("artista"),
+                                        o.getInt("annoNac"),
+                                        o.getString("lugarNac"),
+                                        o.getInt("annoFal"),
+                                        o.getString("lugarFal"),
+                                        o.getInt("publicado_en"),
+                                        o.getString("periodo"),
+                                        o.getString("descripcion"),
+                                        o.getString("dato_curioso"),
+                                        o.getString("imagen"));
+                                Log.d("Ha insertado", "las obras");
+                            } catch (Exception e) {
+                                Log.d("ERROR: ", e.getMessage());
+                            }
+
                         }
                     }
                 } catch (Exception e) {

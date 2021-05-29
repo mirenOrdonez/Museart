@@ -5,10 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class DbManager {
     public static final String TABLA_OBRAS = "obras";
-    public static final String OBRAS_ID = "id";
+    public static final String OBRAS_ID = "_id";
     public static final String OBRAS_TITULO = "titulo";
     public static final String OBRAS_ARTISTA = "artista";
     public static final String OBRAS_ANNONAC = "annoNac";
@@ -40,22 +41,22 @@ public class DbManager {
     private DbHelper helper;
     private SQLiteDatabase db;
 
+
     public DbManager(Context context) {
         helper = new DbHelper(context);
         db = helper.getWritableDatabase();
+        /*close();
+        context.deleteDatabase("museart");*/
+
     }
 
-    public DbManager open() throws SQLException {
-        db = helper.getWritableDatabase();
-        return this;
-    }
 
     public void close() {
-        helper.close();
+       helper.close();
     }
 
     //CREAR LA TABLA OBRAS
-    private ContentValues generarObras(int id, String titulo, String artista, int annoNac, String lugarNac, int annoFal,
+    private ContentValues generarObras(String id, String titulo, String artista, int annoNac, String lugarNac, int annoFal,
                                        String lugarFal,int publicado_en, String periodo, String descripcion, String dato_curioso, String imagen) {
         ContentValues init = new ContentValues();
         init.put(OBRAS_ID, id);
@@ -73,7 +74,7 @@ public class DbManager {
         return init;
     }
 
-    public long insertarObras (int id, String titulo, String artista, int annoNac, String lugarNac, int annoFal,
+    public long insertarObras (String id, String titulo, String artista, int annoNac, String lugarNac, int annoFal,
                                String lugarFal,int publicado_en, String periodo, String descripcion,
                                String dato_curioso, String imagen) {
 

@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     tools:context=".MainActivity">
 
         <FrameLayout
             android:id="@+id/frame_container"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
             android:backgroundTint="#FFFFFF"
@@ -22,54 +22,43 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="100dp">
 
                         <ImageView
                             android:id="@+id/imageView"
                             android:layout_width="match_parent"
-                            android:layout_height="452dp"
+                            android:layout_height="300dp"
                             app:srcCompat="@drawable/logo" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:orientation="horizontal">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+                                        <Button
+                                            android:id="@+id/btnLogin"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="40dp"
+                                            android:layout_marginEnd="40dp"
+                                            android:backgroundTint="#72C5D0"
+                                            android:text="LOGIN" />
 
-                                <Button
-                                    android:id="@+id/btnLogin"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="112dp"
-                                    android:backgroundTint="#72C5D0"
-                                    android:text="LOGIN" />
+                                        <Button
+                                            android:id="@+id/btnRegistro"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="40dp"
+                                            android:layout_marginEnd="40dp"
+                                            android:backgroundTint="#7DB0D8"
+                                            android:text="REGISTRO" />
+                                </LinearLayout>
 
-                                <Button
-                                    android:id="@+id/btnRegistro"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:backgroundTint="#7DB0D8"
-                                    android:text="REGISTRO" />
-                        </LinearLayout>
+
+
 
                 </LinearLayout>
-
-
-                <!--<com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:id="@+id/navigation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="?android:attr/windowBackground"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:itemBackground="@color/bgBottomNavigation"
-                    app:itemIconTint="@android:color/white"
-                    app:itemTextColor="@android:color/holo_blue_dark"
-                    app:menu="@menu/navigation"
-                    tools:ignore="MissingConstraints">
-
-                </com.google.android.material.bottomnavigation.BottomNavigationView>-->
 
 
         </FrameLayout>
