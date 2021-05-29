@@ -19,12 +19,13 @@ public class RegistroRequest extends StringRequest {
     public RegistroRequest(int idAdmin, String nombre, String email, String password, int nivel,  Response.Listener<String> listener){
         super(Method.POST, REGISTER_REQUEST_URL, listener, null);
         params= new HashMap<>();
+
         //PARAMETRO POR CAMPO A RELLENAR
         params.put("idAdmin", String.valueOf(idAdmin));
-        params.put("Nombre", nombre);
-        params.put("Email", email);
-        params.put("Password", password);
-        params.put("Nivel", String.valueOf(nivel));
+        params.put("nombre", nombre);
+        params.put("email", email);
+        params.put("password", password);
+        params.put("nivel", String.valueOf(nivel));
 
     }
 

@@ -94,4 +94,13 @@ public class DbManager {
         }
         return cursor;
     }
+
+    public Cursor getCursor1(String tabla, String condicion, int i) throws SQLException {
+        String q = "SELECT rowid _id,* FROM " + tabla + " WHERE " + condicion;
+        Cursor cursor = db.rawQuery(q, null);
+        if (cursor != null) {
+            cursor.moveToPosition(i);
+        }
+        return cursor;
+    }
 }

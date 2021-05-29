@@ -67,7 +67,6 @@ public class GalleryFragment extends Fragment {
                 c.moveToFirst();
                 adapter = new obraAdapter(getActivity().getApplicationContext(), c);
                 lista.setAdapter(adapter);
-                Log.d("Muestra", "listv");
             } catch (Exception e) {
                 Log.d("error", e.getMessage());
             }
@@ -80,9 +79,13 @@ public class GalleryFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                Log.d("Posicion", String.valueOf(i));
                 Cursor cursorObra = (Cursor) lista.getItemAtPosition(i);
+                //Cursor cursorObra = db.getCursor("obras", "_id="+i);
+                Log.d("posicion cursor", String.valueOf(cursorObra.getPosition()));
+                cursorObra = db.getCursor1("obras", "_id="+i, i);
                 int id = cursorObra.getColumnIndexOrThrow("_id");
-                //Log.d("id", String.valueOf(id));
+                Log.d("id", String.valueOf(id));
                 startActivity(new Intent(getActivity().getApplicationContext(), ObraActivity.class).putExtra("_id", id));
 
             }
@@ -119,7 +122,7 @@ public class GalleryFragment extends Fragment {
                                         o.getString("descripcion"),
                                         o.getString("dato_curioso"),
                                         o.getString("imagen"));
-                                Log.d("Ha insertado", "las obras");
+
                             } catch (Exception e) {
                                 Log.d("ERROR: ", e.getMessage());
                             }
