@@ -25,6 +25,7 @@
         app:srcCompat="@drawable/logoletra" />
 
 
+
     <ImageView
         android:id="@+id/urlimagen"
         android:layout_width="match_parent"

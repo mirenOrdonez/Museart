@@ -2,7 +2,9 @@ package com.example.bottomnavbar;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.hardware.Camera;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.squareup.picasso.Picasso;
  */
 public class ScannerFragment extends Fragment {
 
+    private DbManager db;
     private Cursor c;
     private ImageView _imagen;
     private TextView _titulo, _artista, _annoNac, _lugarNac, _annoFal, _lugarFal, _publicado_en, _periodo, _descripcion, _dato_curioso;
@@ -54,6 +57,8 @@ public class ScannerFragment extends Fragment {
         _descripcion = vista.findViewById(R.id.descripcion);
         _dato_curioso = vista.findViewById(R.id.dato_curioso);
 
+
+
         escanear();
 
         return vista;
@@ -78,38 +83,44 @@ public class ScannerFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
+
         if(result != null) {
             if(result.getContents() == null) {
                 Toast.makeText(getContext(), "Cancelaste el escaneo", Toast.LENGTH_SHORT).show();
             } else {
+                String respuesta = result.getContents();
+                db = new DbManager(getActivity().getApplicationContext());
 
-                _titulo.setText(result.getContents().toString());
-                _publicado_en.setText(result.getContents().toString());
-                _artista.setText(result.getContents().toString());
-                _annoNac.setText(result.getContents().toString());
-                _lugarNac.setText(result.getContents().toString());
-                _annoFal.setText(result.getContents().toString());
-                _lugarFal.setText(result.getContents().toString());
-                _periodo.setText(result.getContents().toString());
-                _descripcion.setText(result.getContents().toString());
-                _dato_curioso.setText(result.getContents().toString());
+                c = db.getCursor("obras", "_id =" + respuesta);
+                if (c.moveToFirst()) {
+                    do {
+                        _titulo.setText(c.getString(c.getColumnIndexOrThrow("titulo")));
+                        _artista.setText(c.getString(c.getColumnIndexOrThrow("artista")));
+                        _annoNac.setText(c.getString(c.getColumnIndexOrThrow("annoNac")));
+                        _lugarNac.setText(c.getString(c.getColumnIndexOrThrow("lugarNac")));
+                        _annoFal.setText(c.getString(c.getColumnIndexOrThrow("annoFal")));
+                        _lugarFal.setText(c.getString(c.getColumnIndexOrThrow("lugarFal")));
+                        _publicado_en.setText(c.getString(c.getColumnIndexOrThrow("publicado_en")));
+                        _periodo.setText(c.getString(c.getColumnIndexOrThrow("periodo")));
+                        _descripcion.setText(c.getString(c.getColumnIndexOrThrow("descripcion")));
+                        _dato_curioso.setText(c.getString(c.getColumnIndexOrThrow("dato_curioso")));
 
-                Picasso.with(getActivity().getApplicationContext()).load("http://192.168.64.2/MUSEART/img"+c.getString(c.getColumnIndexOrThrow("imagen")))
-                        .into(_imagen, new Callback() {
-                            @Override
-                            public void onSuccess() {
+                        Picasso.with(getActivity().getApplicationContext()).load("http://192.168.64.2/MUSEART/img/" + c.getString(c.getColumnIndexOrThrow("imagen")))
+                                .into(_imagen, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
 
-                            }
+                                    }
 
-                            @Override
-                            public void onError() {
+                                    @Override
+                                    public void onError() {
 
-                            }
-                        });
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
+                                    }
+                                });
+                    } while (c.moveToNext());
+                } else {
+                    super.onActivityResult(requestCode, resultCode, data);
+                }
 
         /*btnLeerCodigo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +128,8 @@ public class ScannerFragment extends Fragment {
                 escanear();
             }
         });*/
+            }
     }
 
+}
 }
