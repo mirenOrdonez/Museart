@@ -5,8 +5,8 @@ import android.database.Cursor;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -26,6 +26,7 @@ import com.squareup.picasso.Picasso;
  * A simple {@link Fragment} subclass.
  */
 public class ScannerFragment extends Fragment {
+
 
     private DbManager db;
     private Cursor c;
@@ -57,26 +58,23 @@ public class ScannerFragment extends Fragment {
         _descripcion = vista.findViewById(R.id.descripcion);
         _dato_curioso = vista.findViewById(R.id.dato_curioso);
 
-
-
         escanear();
 
         return vista;
 
     }
 
-    public void escanear() {
 
+    public void escanear() {
         IntentIntegrator intent = IntentIntegrator.forSupportFragment(ScannerFragment.this);
         intent.setCaptureActivity(CapturaAct.class);
-        intent.setOrientationLocked(false);
+        intent.setOrientationLocked(true);
         intent.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
         intent.setPrompt("ESCANEAR CODIGO");
         intent.setCameraId(0);
         intent.setBeepEnabled(false);
         intent.setBarcodeImageEnabled(false);
         intent.initiateScan();
-
     }
 
     @Override
@@ -122,14 +120,14 @@ public class ScannerFragment extends Fragment {
                     super.onActivityResult(requestCode, resultCode, data);
                 }
 
-        /*btnLeerCodigo.setOnClickListener(new View.OnClickListener() {
+        btnLeerCodigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 escanear();
             }
-        });*/
+        });
             }
     }
 
-}
+    }
 }
